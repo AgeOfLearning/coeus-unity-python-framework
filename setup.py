@@ -9,7 +9,7 @@ with open('README.md') as readme_file:
     readme = readme_file.read()
 
 requirements = ["coeus-test"]
-setup_requirements = ["pytest-runner"]
+setup_requirements = ["coeus-test", "pytest-runner"]
 test_requirements = ["coeus-test", "pytest"]
 
 setup(
