@@ -19,6 +19,7 @@ def query_transform_exists(cli, transform_path):
     }
     msg = coeus_test.message.Message("query.unity.transform.exists", message_payload)
     cli.send_message(msg)
+    return cli.read_message()
 
 
 def await_transform_exists(cli, transform_path, does_exist=DEFAULT_TRANSFORM_EXISTS, timeout_seconds=DEFAULT_TIMEOUT_SECONDS):
@@ -54,6 +55,7 @@ def query_transform_screen_position(cli, transform_path):
     }
     msg = coeus_test.message.Message("query.unity.transform.screenPosition", message_payload)
     cli.send_message(msg)
+    return cli.read_message()
 
 
 def query_renderer_visible(cli, transform_path):
@@ -69,6 +71,7 @@ def query_renderer_visible(cli, transform_path):
     }
     msg = coeus_test.message.Message("query.unity.renderer.visible", message_payload)
     cli.send_message(msg)
+    return cli.read_message()
 
 
 def await_renderer_visible(cli, transform_path, is_visible=DEFAULT_RENDERER_VISIBLE, timeout_seconds=DEFAULT_TIMEOUT_SECONDS):
@@ -103,6 +106,7 @@ def query_scene_loaded(cli, scene_name):
     }
     msg = coeus_test.message.Message("query.unity.scene.loaded", message_payload)
     cli.send_message(msg)
+    return cli.read_message()
 
 
 def await_scene_loaded(cli, scene_name, is_loaded=DEFAULT_SCENE_LOADED, timeout_seconds=DEFAULT_TIMEOUT_SECONDS):
