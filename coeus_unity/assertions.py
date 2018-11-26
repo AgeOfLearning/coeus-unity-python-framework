@@ -44,6 +44,18 @@ def assert_scene_loaded(cli, scene_name):
     return result
 
 
+def assert_fetch_transform_screen_position(cli, transform_path):
+    """
+    Asserts the message and fetches the results.
+    :param cli:
+    :param transform_path:
+    :return:
+    """
+    result = commands.fetch_transform_screen_position(cli, transform_path)
+    assert_verify_message(result)
+    return result
+
+
 def assert_await_transform_exists(cli, transform_path, does_exist=DEFAULT_TRANSFORM_EXISTS, timeout_seconds=DEFAULT_TIMEOUT_SECONDS):
     """
     Asserts that we successfully awaited for the transform to exist based on does_exist. If the timeout passes

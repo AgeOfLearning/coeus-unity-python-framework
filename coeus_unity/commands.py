@@ -41,7 +41,7 @@ def await_transform_exists(cli, transform_path, does_exist=DEFAULT_TRANSFORM_EXI
     return cli.read_message()
 
 
-def query_transform_screen_position(cli, transform_path):
+def fetch_transform_screen_position(cli, transform_path):
     """
     Requests screen position of a transform at path. WorldToScreenPoint is used for 3D, otherwise
     a screen-scaled center of RectTransform is used.
@@ -53,7 +53,7 @@ def query_transform_screen_position(cli, transform_path):
     message_payload = {
         "transform_path": transform_path
     }
-    msg = coeus_test.message.Message("query.unity.transform.screenPosition", message_payload)
+    msg = coeus_test.message.Message("fetch.unity.transform.screenPosition", message_payload)
     cli.send_message(msg)
     return cli.read_message()
 
