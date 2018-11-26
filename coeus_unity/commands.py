@@ -1,4 +1,4 @@
-import coeus.message
+import coeus_test.message
 
 DEFAULT_TIMEOUT_SECONDS = 60
 DEFAULT_TRANSFORM_EXISTS = True
@@ -17,7 +17,7 @@ def query_transform_exists(cli, transform_path):
     message_payload = {
         "transform_path": transform_path
     }
-    msg = coeus.message.Message("query.unity.transform.exists", message_payload)
+    msg = coeus_test.message.Message("query.unity.transform.exists", message_payload)
     cli.send_message(msg)
 
 
@@ -35,7 +35,7 @@ def await_transform_exists(cli, transform_path, does_exist=DEFAULT_TRANSFORM_EXI
         "does_exist": does_exist,
         "timeout": timeout_seconds
     }
-    msg = coeus.message.Message("await.unity.transform.exists", message_payload)
+    msg = coeus_test.message.Message("await.unity.transform.exists", message_payload)
     cli.send_message(msg)
     return cli.read_message()
 
@@ -52,7 +52,7 @@ def query_transform_screen_position(cli, transform_path):
     message_payload = {
         "transform_path": transform_path
     }
-    msg = coeus.message.Message("query.unity.transform.screenPosition", message_payload)
+    msg = coeus_test.message.Message("query.unity.transform.screenPosition", message_payload)
     cli.send_message(msg)
 
 
@@ -67,7 +67,7 @@ def query_renderer_visible(cli, transform_path):
     message_payload = {
         "transform_path": transform_path
     }
-    msg = coeus.message.Message("query.unity.renderer.visible", message_payload)
+    msg = coeus_test.message.Message("query.unity.renderer.visible", message_payload)
     cli.send_message(msg)
 
 
@@ -85,7 +85,7 @@ def await_renderer_visible(cli, transform_path, is_visible=DEFAULT_RENDERER_VISI
         "is_visible": is_visible,
         "timeout": timeout_seconds
     }
-    msg = coeus.message.Message("await.unity.renderer.visible", message_payload)
+    msg = coeus_test.message.Message("await.unity.renderer.visible", message_payload)
     cli.send_message(msg)
     return cli.read_message()
 
@@ -101,7 +101,7 @@ def query_scene_loaded(cli, scene_name):
     message_payload = {
         "scene_name": scene_name
     }
-    msg = coeus.message.Message("query.unity.scene.loaded", message_payload)
+    msg = coeus_test.message.Message("query.unity.scene.loaded", message_payload)
     cli.send_message(msg)
 
 
@@ -119,6 +119,6 @@ def await_scene_loaded(cli, scene_name, is_loaded=DEFAULT_SCENE_LOADED, timeout_
         "is_loaded": is_loaded,
         "timeout": timeout_seconds
     }
-    msg = coeus.message.Message("await.unity.scene.loaded", message_payload)
+    msg = coeus_test.message.Message("await.unity.scene.loaded", message_payload)
     cli.send_message(msg)
     return cli.read_message()

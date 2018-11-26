@@ -8,9 +8,11 @@ from setuptools import setup, find_packages
 with open('README.md') as readme_file:
     readme = readme_file.read()
 
-requirements = ["coeus-test"]
-setup_requirements = ["coeus-test", "pytest-runner"]
-test_requirements = ["coeus-test", "pytest"]
+with open('requirements.txt') as f:
+    required = f.read().splitlines()
+
+setup_requirements = ["pytest-runner"]
+test_requirements = ["pytest"]
 
 setup(
     author="Devon Klompmaker",
@@ -29,14 +31,14 @@ setup(
         'Programming Language :: Python :: 3.7',
     ],
     description="Unity commands and responses for coeus-python-framework.",
-    install_requires=requirements,
+    install_requires=required,
     license="BSD 3-Clause License",
     long_description=readme,
     long_description_content_type="text/markdown",
     include_package_data=True,
     keywords='coeus-test-unity',
     name='coeus-test-unity',
-    packages=find_packages(include=['coeus-test-unity']),
+    packages=['coeus_unity'],
     setup_requires=setup_requirements,
     tests_require=test_requirements,
     url='https://github.com/AgeOfLearning/coeus-unity-python-framework',
