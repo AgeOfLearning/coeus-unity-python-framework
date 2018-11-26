@@ -1,3 +1,5 @@
 .idea
 coeus_test_unity.egg-info
 dist
+coeus_unity
+*.pyc
