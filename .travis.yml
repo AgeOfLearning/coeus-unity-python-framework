@@ -1,9 +1,7 @@
 language: python
 python:
 - 2.7
-script:
-  - pip install -r requirements.txt
-  - python setup.py test
+script: python setup.py test
 deploy:
   provider: pypi
   distributions: sdist bdist_wheel
@@ -12,4 +10,4 @@ deploy:
     tags: true
     repo: AgeOfLearning/coeus-unity-python-framework
   password:
-    secure: O6SA4OnFlnWZMwHc4bytMuxJYY0Do306hiNX96afc9lW9NTh/DJs2/d6Wn/FrqoPaboqh33WmDhPgyK3GoJzaI0lYfSv2I4Zr5yG5WoiBmqSj9/KMaNWcZd/kSJBpGI5WdVtN7OqRaBxMJ7PJ0gtGaBKig0JwCgKSKP7MjCNEhsEks+NmjQhGWekw83+uffvEnqUi3Q9usy6mwkkPEB/Bq958CZ3x9pfqtH63QvDEA3NtONhz/Cp3lW+pL+EnkQQW5i1R2txnq3OviAYPZVvfTFZcT05HPp0ivDqklNVeg7ufILdmtPc+P0pzEm8YxaAgd0tS1ODD5Af8dWxc+z2XX/2pUdFLcYJ48cIP1DvnAwvl7PJgwDncb17PMyFxZl17NFkMb2PCXMVmv40ASVkdR/OZzmHpEVzqKkID0sBXpKRazhlzPT+PLOzTC4fHrAjGsCBAyxyKTdV1f/TpJiFdP2rlczMsxdmqPZjUaw6Hc/IVMgyCt8pJOcQQRejCgn1TULJX+MsxHJRR1LvSVtD5VHC+sD5PUFROQrZuygQJqGemwoesljG3xoER7lVsteoRdFvZ+jiQkyGaYEW+/AAFE+eCaHLgMkfnrY0TkTEENghb0kBozvkuLHU4oxp61xqLd3lR5WK8ZfizE+IrNco4xYHRLnCNRcPV20epqvnc8I=
+    secure: EWxj/wrIvDHx1QD9sKWtDwCk8qvVNZi7UW7RgLKIfYFmZ+COW27Ntx1ipwwkrxhEQlgGUzmb7j6HHHNytvl1KbtwIp+VTSA1Cm8YC1f3FW3XfA7B/rdsTANv6TJfop2kF31b6kI8udmPUljl16DNQMrntKvCARoQJXB5kobvZel8bDmyn6I0wawXYE05HLnkIXLVgNYsl6tVPdaGtX6VdscYW6jMveM8rneCIsMLalUPERk/NCD4JKlH+18JbFlTKXCRUsD/hMq+Lmle2AXSiQ+mLfm3U8D6mseR+lQIRKPgBa2LiuQyEJNg01h+FP3CBmD2mtxrsAhV1a+GxBbi+6b/xROgYTR5XS3BojqlauMgmMpbKyg4KT+UUyJxPcYBeqgNZVGrQfNYVIEww3xq0uwpEyRl6K8/7XQO8ZLO/WFOXOeak1nxpkf+HWCxqe/oIHifm/gOFLTibjVpFHnGIMzHlaPW2RPcc+TtCHut6JuB5ncTOiR831Dgr4dhb1Ku8YYZCYNARNh42/QCNgOaYeJ5L4Ay0OklsxLQAziBDP9u/CPnHEhAFrEPtXRiN+kzteyyNRR7RN073540mC5YQY4JP6H2xd9Q9g7x+JDTTIfs71JJ+B23KpV3w180Gx9cj8oA4WgfXoWDCUNpmjg7rhKs7ZDgjzFhr2eCahYlhvk=
