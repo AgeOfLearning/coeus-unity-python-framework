@@ -10,7 +10,7 @@ with open('README.md') as readme_file:
 
 requirements = ["coeus-test"]
 setup_requirements = ["pytest-runner"]
-test_requirements = ["pytest"]
+test_requirements = ["coeus-test", "pytest"]
 
 setup(
     author="Devon Klompmaker",
