@@ -6,18 +6,6 @@ DEFAULT_RENDERER_VISIBLE = True
 DEFAULT_SCENE_LOADED = True
 
 
-def assert_verify_message(message):
-    """
-    Verifies that the message is not None,
-    'payload' exists and 'payload' is not None.
-    :param message:
-    :return:
-    """
-    assert message is not None
-    assert 'payload' in message
-    assert message['payload'] is not None
-
-
 def assert_transform_exists(cli, transform_path):
     """
     Asserts that the transform exists.
@@ -26,8 +14,7 @@ def assert_transform_exists(cli, transform_path):
     :return:
     """
     result = commands.query_transform_exists(cli, transform_path)
-    assert_verify_message(result)
-    assert result['payload']['result'] is True
+    assert result is True
     return result
 
 
@@ -39,20 +26,7 @@ def assert_scene_loaded(cli, scene_name):
     :return:
     """
     result = commands.query_scene_loaded(cli, scene_name)
-    assert_verify_message(result)
-    assert result['payload']['result'] is True
-    return result
-
-
-def assert_fetch_transform_screen_position(cli, transform_path):
-    """
-    Asserts the message and fetches the results.
-    :param cli:
-    :param transform_path:
-    :return:
-    """
-    result = commands.fetch_transform_screen_position(cli, transform_path)
-    assert_verify_message(result)
+    assert result is True
     return result
 
 
@@ -67,8 +41,7 @@ def assert_await_transform_exists(cli, transform_path, does_exist=DEFAULT_TRANSF
     :return:
     """
     result = commands.await_transform_exists(cli, transform_path, does_exist, timeout_seconds)
-    assert_verify_message(result)
-    assert result['payload']['success'] is True
+    assert result is True
     return result
 
 
@@ -83,8 +56,7 @@ def assert_await_renderer_visible(cli, transform_path, is_visible=DEFAULT_RENDER
     :return:
     """
     result = commands.await_renderer_visible(cli, transform_path, is_visible, timeout_seconds)
-    assert_verify_message(result)
-    assert result['payload']['success'] is True
+    assert result is True
     return result
 
 
@@ -99,6 +71,5 @@ def assert_await_scene_loaded(cli, scene_name, is_loaded=DEFAULT_SCENE_LOADED, t
     :return:
     """
     result = commands.await_scene_loaded(cli, scene_name, is_loaded, timeout_seconds)
-    assert_verify_message(result)
-    assert result['payload']['success'] is True
+    assert result is True
     return result

@@ -6,12 +6,24 @@ DEFAULT_RENDERER_VISIBLE = True
 DEFAULT_SCENE_LOADED = True
 
 
+def assert_verify_message(message):
+    """
+    Verifies that the message is not None,
+    'payload' exists and 'payload' is not None.
+    :param message:
+    :return:
+    """
+    assert message is not None
+    assert 'payload' in message
+    assert message['payload'] is not None
+
+
 def query_transform_exists(cli, transform_path):
     """
     Requests status on whether a transform exists or not.
     :param cli:
     :param transform_path:
-    :return:
+    :return: bool
     """
 
     message_payload = {
@@ -19,7 +31,10 @@ def query_transform_exists(cli, transform_path):
     }
     msg = coeus_test.message.Message("query.unity.transform.exists", message_payload)
     cli.send_message(msg)
-    return cli.read_message()
+
+    response = cli.read_message()
+    assert_verify_message(response)
+    return bool(response['payload']['result'])
 
 
 def await_transform_exists(cli, transform_path, does_exist=DEFAULT_TRANSFORM_EXISTS, timeout_seconds=DEFAULT_TIMEOUT_SECONDS):
@@ -29,7 +44,7 @@ def await_transform_exists(cli, transform_path, does_exist=DEFAULT_TRANSFORM_EXI
     :param transform_path:
     :param does_exist: Whether or not to await for exist state (True | False)
     :param timeout_seconds: How long until this returns with failure
-    :return:
+    :return: bool
     """
     message_payload = {
         "transform_path": transform_path,
@@ -38,7 +53,10 @@ def await_transform_exists(cli, transform_path, does_exist=DEFAULT_TRANSFORM_EXI
     }
     msg = coeus_test.message.Message("await.unity.transform.exists", message_payload)
     cli.send_message(msg)
-    return cli.read_message()
+
+    response = cli.read_message()
+    assert_verify_message(response)
+    return bool(response['payload']['success'])
 
 
 def fetch_transform_screen_position(cli, transform_path):
@@ -47,7 +65,7 @@ def fetch_transform_screen_position(cli, transform_path):
     a screen-scaled center of RectTransform is used.
     :param cli:
     :param transform_path:
-    :return:
+    :return: [x,y]
     """
 
     message_payload = {
@@ -55,7 +73,13 @@ def fetch_transform_screen_position(cli, transform_path):
     }
     msg = coeus_test.message.Message("fetch.unity.transform.screenPosition", message_payload)
     cli.send_message(msg)
-    return cli.read_message()
+
+    response = cli.read_message()
+    assert_verify_message(response)
+    return [
+            response['payload']['x'],
+            response['payload']['y']
+    ]
 
 
 def query_renderer_visible(cli, transform_path):
@@ -63,7 +87,7 @@ def query_renderer_visible(cli, transform_path):
     Requests status on whether a renderer at transform_path is visible.
     :param cli:
     :param transform_path:
-    :return:
+    :return: bool
     """
 
     message_payload = {
@@ -71,7 +95,10 @@ def query_renderer_visible(cli, transform_path):
     }
     msg = coeus_test.message.Message("query.unity.renderer.visible", message_payload)
     cli.send_message(msg)
-    return cli.read_message()
+
+    response = cli.read_message()
+    assert_verify_message(response)
+    return bool(response['payload']['result'])
 
 
 def await_renderer_visible(cli, transform_path, is_visible=DEFAULT_RENDERER_VISIBLE, timeout_seconds=DEFAULT_TIMEOUT_SECONDS):
@@ -81,7 +108,7 @@ def await_renderer_visible(cli, transform_path, is_visible=DEFAULT_RENDERER_VISI
     :param transform_path:
     :param is_visible: Whether or not to await for visible state (True | False)
     :param timeout_seconds: How long until this returns with failure
-    :return:
+    :return: bool
     """
     message_payload = {
         "transform_path": transform_path,
@@ -90,7 +117,10 @@ def await_renderer_visible(cli, transform_path, is_visible=DEFAULT_RENDERER_VISI
     }
     msg = coeus_test.message.Message("await.unity.renderer.visible", message_payload)
     cli.send_message(msg)
-    return cli.read_message()
+
+    response = cli.read_message()
+    assert_verify_message(response)
+    return bool(response['payload']['success'])
 
 
 def query_scene_loaded(cli, scene_name):
@@ -98,7 +128,7 @@ def query_scene_loaded(cli, scene_name):
     Requests status on whether a scene is loaded or not.
     :param cli:
     :param scene_name:
-    :return:
+    :return: bool
     """
 
     message_payload = {
@@ -106,7 +136,10 @@ def query_scene_loaded(cli, scene_name):
     }
     msg = coeus_test.message.Message("query.unity.scene.loaded", message_payload)
     cli.send_message(msg)
-    return cli.read_message()
+
+    response = cli.read_message()
+    assert_verify_message(response)
+    return bool(response['payload']['result'])
 
 
 def await_scene_loaded(cli, scene_name, is_loaded=DEFAULT_SCENE_LOADED, timeout_seconds=DEFAULT_TIMEOUT_SECONDS):
@@ -116,7 +149,7 @@ def await_scene_loaded(cli, scene_name, is_loaded=DEFAULT_SCENE_LOADED, timeout_
     :param scene_name:
     :param is_loaded: Whether or not to await for loaded state (True | False)
     :param timeout_seconds: How long until this returns with failure
-    :return:
+    :return: bool
     """
     message_payload = {
         "scene_name": scene_name,
@@ -125,4 +158,7 @@ def await_scene_loaded(cli, scene_name, is_loaded=DEFAULT_SCENE_LOADED, timeout_
     }
     msg = coeus_test.message.Message("await.unity.scene.loaded", message_payload)
     cli.send_message(msg)
-    return cli.read_message()
+
+    response = cli.read_message()
+    assert_verify_message(response)
+    return bool(response['payload']['success'])
