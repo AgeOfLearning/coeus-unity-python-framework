@@ -82,6 +82,29 @@ def fetch_transform_screen_position(cli, transform_path):
     ]
 
 
+def fetch_transform_normalized_screen_position(cli, transform_path):
+    """
+    Requests screen position of a transform at path. WorldToScreenPoint is used for 3D, otherwise
+    a screen-scaled center of RectTransform is used.
+    :param cli:
+    :param transform_path:
+    :return: [x,y]
+    """
+
+    message_payload = {
+        "transform_path": transform_path
+    }
+    msg = coeus_test.message.Message("fetch.unity.transform.screenPosition", message_payload)
+    cli.send_message(msg)
+
+    response = cli.read_message()
+    assert_verify_message(response)
+    return [
+            response['payload']['normalized_x'],
+            response['payload']['normalized_y']
+    ]
+
+
 def query_renderer_visible(cli, transform_path):
     """
     Requests status on whether a renderer at transform_path is visible.
