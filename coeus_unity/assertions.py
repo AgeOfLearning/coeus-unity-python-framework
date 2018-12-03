@@ -45,6 +45,36 @@ def assert_await_transform_exists(cli, transform_path, does_exist=DEFAULT_TRANSF
     return result
 
 
+def assert_await_any_transforms_exist(cli, transform_paths, does_exist=DEFAULT_TRANSFORM_EXISTS, timeout_seconds=DEFAULT_TIMEOUT_SECONDS):
+    """
+    Asserts that we successfully awaited for any transforms to exist based on does_exist. If the timeout passes
+    or the expression is_registered != actual state, then it will fail.
+    :param cli:
+    :param transform_paths:
+    :param does_exist: (True | False) the state change we are waiting for.
+    :param timeout_seconds: The amount of time to wait for a change before fail.
+    :return:
+    """
+    result = commands.await_any_transforms_exist(cli, transform_paths, does_exist, timeout_seconds)
+    assert result is True
+    return result
+
+
+def assert_await_all_transforms_exist(cli, transform_paths, does_exist=DEFAULT_TRANSFORM_EXISTS, timeout_seconds=DEFAULT_TIMEOUT_SECONDS):
+    """
+    Asserts that we successfully awaited for all transforms to exist based on does_exist. If the timeout passes
+    or the expression is_registered != actual state, then it will fail.
+    :param cli:
+    :param transform_paths:
+    :param does_exist: (True | False) the state change we are waiting for.
+    :param timeout_seconds: The amount of time to wait for a change before fail.
+    :return:
+    """
+    result = commands.await_all_transforms_exist(cli, transform_paths, does_exist, timeout_seconds)
+    assert result is True
+    return result
+
+
 def assert_await_renderer_visible(cli, transform_path, is_visible=DEFAULT_RENDERER_VISIBLE, timeout_seconds=DEFAULT_TIMEOUT_SECONDS):
     """
     Asserts that we successfully awaited for the renderer to be visible based on is_visible. If the timeout passes

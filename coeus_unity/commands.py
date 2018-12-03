@@ -39,7 +39,7 @@ def query_transform_exists(cli, transform_path):
 
 def await_transform_exists(cli, transform_path, does_exist=DEFAULT_TRANSFORM_EXISTS, timeout_seconds=DEFAULT_TIMEOUT_SECONDS):
     """
-    Waits for a transform to exist based on does_exist.
+    Waits for a single transform to exist based on does_exist.
     :param cli:
     :param transform_path:
     :param does_exist: Whether or not to await for exist state (True | False)
@@ -47,8 +47,55 @@ def await_transform_exists(cli, transform_path, does_exist=DEFAULT_TRANSFORM_EXI
     :return: bool
     """
     message_payload = {
-        "transform_path": transform_path,
-        "does_exist": does_exist,
+        "transform_paths": [transform_path],
+        "do_exist": does_exist,
+        "match_mode": "All",
+        "timeout": timeout_seconds
+    }
+    msg = coeus_test.message.Message("await.unity.transform.exists", message_payload)
+    cli.send_message(msg)
+
+    response = cli.read_message()
+    assert_verify_message(response)
+    return bool(response['payload']['success'])
+
+
+def await_any_transforms_exist(cli, transform_paths, does_exist=DEFAULT_TRANSFORM_EXISTS, timeout_seconds=DEFAULT_TIMEOUT_SECONDS):
+    """
+    Waits for a transform to exist based on does_exist.
+    :param cli:
+    :param transform_paths: An array of transform paths [...]
+    :param does_exist: Whether or not to await for exist state (True | False)
+    :param timeout_seconds: How long until this returns with failure
+    :return: bool
+    """
+    message_payload = {
+        "transform_paths": transform_paths,
+        "do_exist": does_exist,
+        "match_mode": "Any",
+        "timeout": timeout_seconds
+    }
+    msg = coeus_test.message.Message("await.unity.transform.exists", message_payload)
+    cli.send_message(msg)
+
+    response = cli.read_message()
+    assert_verify_message(response)
+    return bool(response['payload']['success'])
+
+
+def await_all_transforms_exist(cli, transform_paths, does_exist=DEFAULT_TRANSFORM_EXISTS, timeout_seconds=DEFAULT_TIMEOUT_SECONDS):
+    """
+    Waits for all transforms specified in transform_paths to exist or not based on does_exist.
+    :param cli:
+    :param transform_paths: An array of transform paths [...]
+    :param does_exist: Whether or not to await for exist state (True | False)
+    :param timeout_seconds: How long until this returns with failure
+    :return: bool
+    """
+    message_payload = {
+        "transform_paths": transform_paths,
+        "do_exist": does_exist,
+        "match_mode": "All",
         "timeout": timeout_seconds
     }
     msg = coeus_test.message.Message("await.unity.transform.exists", message_payload)
