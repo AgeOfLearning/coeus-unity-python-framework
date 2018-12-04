@@ -1,21 +1,10 @@
+from coeus_test.commands import verify_response
 import coeus_test.message
 
 DEFAULT_TIMEOUT_SECONDS = 60
 DEFAULT_TRANSFORM_EXISTS = True
 DEFAULT_RENDERER_VISIBLE = True
 DEFAULT_SCENE_LOADED = True
-
-
-def assert_verify_message(message):
-    """
-    Verifies that the message is not None,
-    'payload' exists and 'payload' is not None.
-    :param message:
-    :return:
-    """
-    assert message is not None
-    assert 'payload' in message
-    assert message['payload'] is not None
 
 
 def query_transform_exists(cli, transform_path):
@@ -33,7 +22,7 @@ def query_transform_exists(cli, transform_path):
     cli.send_message(msg)
 
     response = cli.read_message()
-    assert_verify_message(response)
+    verify_response(response)
     return bool(response['payload']['result'])
 
 
@@ -56,7 +45,7 @@ def await_transform_exists(cli, transform_path, does_exist=DEFAULT_TRANSFORM_EXI
     cli.send_message(msg)
 
     response = cli.read_message()
-    assert_verify_message(response)
+    verify_response(response)
     return bool(response['payload']['success'])
 
 
@@ -79,7 +68,7 @@ def await_any_transforms_exist(cli, transform_paths, does_exist=DEFAULT_TRANSFOR
     cli.send_message(msg)
 
     response = cli.read_message()
-    assert_verify_message(response)
+    verify_response(response)
     return bool(response['payload']['success'])
 
 
@@ -102,7 +91,7 @@ def await_all_transforms_exist(cli, transform_paths, does_exist=DEFAULT_TRANSFOR
     cli.send_message(msg)
 
     response = cli.read_message()
-    assert_verify_message(response)
+    verify_response(response)
     return bool(response['payload']['success'])
 
 
@@ -122,7 +111,7 @@ def fetch_transform_screen_position(cli, transform_path):
     cli.send_message(msg)
 
     response = cli.read_message()
-    assert_verify_message(response)
+    verify_response(response)
     return [
             response['payload']['x'],
             response['payload']['y']
@@ -145,7 +134,7 @@ def fetch_transform_normalized_screen_position(cli, transform_path):
     cli.send_message(msg)
 
     response = cli.read_message()
-    assert_verify_message(response)
+    verify_response(response)
     return [
             response['payload']['normalized_x'],
             response['payload']['normalized_y']
@@ -167,7 +156,7 @@ def query_renderer_visible(cli, transform_path):
     cli.send_message(msg)
 
     response = cli.read_message()
-    assert_verify_message(response)
+    verify_response(response)
     return bool(response['payload']['result'])
 
 
@@ -189,7 +178,7 @@ def await_renderer_visible(cli, transform_path, is_visible=DEFAULT_RENDERER_VISI
     cli.send_message(msg)
 
     response = cli.read_message()
-    assert_verify_message(response)
+    verify_response(response)
     return bool(response['payload']['success'])
 
 
@@ -208,7 +197,7 @@ def query_scene_loaded(cli, scene_name):
     cli.send_message(msg)
 
     response = cli.read_message()
-    assert_verify_message(response)
+    verify_response(response)
     return bool(response['payload']['result'])
 
 
@@ -230,5 +219,5 @@ def await_scene_loaded(cli, scene_name, is_loaded=DEFAULT_SCENE_LOADED, timeout_
     cli.send_message(msg)
 
     response = cli.read_message()
-    assert_verify_message(response)
+    verify_response(response)
     return bool(response['payload']['success'])

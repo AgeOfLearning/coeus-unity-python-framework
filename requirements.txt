@@ -1,1 +1,1 @@
-coeus-test>=0.1.3
+coeus-test>=0.1.8
