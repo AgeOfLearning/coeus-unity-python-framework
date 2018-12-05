@@ -36,6 +36,9 @@ response = commands.await_transform_exists(cli, "My/Transform Hierarchy/Object (
 # Waits for renderer to become not visible based on False...
 response = commands.await_renderer_visible(cli, "My/Transform Hierarchy/Object (Clone)", False)
 response = commands.await_scene_loaded(cli, "AppSetup")
+
+# Finds a FieldInfo | PropertyInfo on the component and attempts to assign the value (String | Number | Boolean)
+commands.assign_component_value(cli, "My/Transform/Target", "Text", "text", "Hello World")
 ```
 
 ## Assertions
