@@ -1,4 +1,4 @@
-import commands
+import coeus_unity.commands
 
 DEFAULT_TIMEOUT_SECONDS = 60
 DEFAULT_TRANSFORM_EXISTS = True
