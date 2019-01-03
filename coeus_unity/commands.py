@@ -1,5 +1,5 @@
 from coeus_test.commands import verify_response
-import coeus_test.message
+import coeus_test.message as message
 
 DEFAULT_TIMEOUT_SECONDS = 60
 DEFAULT_TRANSFORM_EXISTS = True
