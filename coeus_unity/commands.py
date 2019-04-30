@@ -223,9 +223,32 @@ def await_scene_loaded(cli, scene_name, is_loaded=DEFAULT_SCENE_LOADED, timeout_
     return bool(response['payload']['success'])
 
 
+def fetch_component_value(cli, transform_path, component_type, name):
+    """
+    Requests value from a component
+    :param cli:
+    :param transform_path: The path of the transform where the component resides
+    :param component_type: The C# type name of the component GetComponent(type)
+    :param name: The field or property name.
+    :return: Component value
+    """
+
+    message_payload = {
+        "transform_path": transform_path,
+        "component_type": component_type,
+        "name": name
+    }
+    msg = message.Message("fetch.unity.component.value", message_payload)
+    cli.send_message(msg)
+
+    response = cli.read_message()
+    verify_response(response)
+    return str(response['payload']['result'])
+
+
 def assign_component_value(cli, transform_path, component_type, name, value):
     """
-    Requests status on whether a scene is loaded or not.
+    Assigns a value to a component
     :param cli:
     :param transform_path: The path of the transform where the component resides
     :param component_type: The C# type name of the component GetComponent(type)
