@@ -225,7 +225,7 @@ def await_scene_loaded(cli, scene_name, is_loaded=DEFAULT_SCENE_LOADED, timeout_
 
 def fetch_component_value(cli, transform_path, component_type, name):
     """
-    Requests value from a component
+    Requests value from a component field or property
     :param cli:
     :param transform_path: The path of the transform where the component resides
     :param component_type: The C# type name of the component GetComponent(type)
@@ -268,3 +268,29 @@ def assign_component_value(cli, transform_path, component_type, name, value):
 
     response = cli.read_message()
     verify_response(response)
+
+
+def await_component_value_equals(cli, transform_path, component_type, name, value, timeout_seconds=DEFAULT_TIMEOUT_SECONDS):
+    """
+    Waits for component field or property to become provided value
+    :param cli:
+    :param transform_path: The path of the transform where the component resides
+    :param component_type: The C# type name of the component GetComponent(type)
+    :param name: The field or property name.
+    :param value: The value to check for equality (String | Number | Boolean)
+    :param timeout_seconds: How long until this returns with failure
+    :return bool(response['payload']['success'])
+    """
+    message_payload = {
+        "transform_path": transform_path,
+        "component_type": component_type,
+        "name": name,
+        "value": value,
+        "timeout": timeout_seconds
+    }
+    msg = message.Message("await.unity.component.value.equals", message_payload)
+    cli.send_message(msg)
+
+    response = cli.read_message()
+    verify_response(response)
+    return bool(response['payload']['success'])

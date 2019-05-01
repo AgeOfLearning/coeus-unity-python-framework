@@ -103,3 +103,35 @@ def assert_await_scene_loaded(cli, scene_name, is_loaded=DEFAULT_SCENE_LOADED, t
     result = commands.await_scene_loaded(cli, scene_name, is_loaded, timeout_seconds)
     assert result is True
     return result
+
+
+def assert_component_value_equals(cli, transform_path, component_type, name, value):
+    """
+    Asserts that component field or property equals to the provided value
+    :param cli:
+    :param transform_path:
+    :param component_type: The C# type name of the component GetComponent(type)
+    :param name: The field or property name.
+    :param value: The value to check for equality (String | Number | Boolean)
+    :return:
+    """
+
+    result = commands.fetch_component_value(cli, transform_path, component_type, name)
+    assert result == value
+    return result
+
+
+def assert_await_component_value_equals(cli, transform_path, component_type, name, value, timeout_seconds=DEFAULT_TIMEOUT_SECONDS):
+    """
+    Asserts that we successfully awaited for the component field or property to become provided value.
+    :param cli:
+    :param transform_path: The path of the transform where the component resides
+    :param component_type: The C# type name of the component GetComponent(type)
+    :param name: The field or property name.
+    :param value: The value to check for equality (String | Number | Boolean)
+    :return:
+    """
+
+    result = commands.await_component_value_equals(cli, transform_path, component_type, name, value, timeout_seconds)
+    assert result is True
+    return result
