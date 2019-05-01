@@ -243,7 +243,7 @@ def fetch_component_value(cli, transform_path, component_type, name):
 
     response = cli.read_message()
     verify_response(response)
-    return str(response['payload']['result'])
+    return response['payload']['result']
 
 
 def assign_component_value(cli, transform_path, component_type, name, value):

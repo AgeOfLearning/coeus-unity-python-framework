@@ -38,7 +38,11 @@ response = commands.await_renderer_visible(cli, "My/Transform Hierarchy/Object (
 response = commands.await_scene_loaded(cli, "AppSetup")
 
 # Finds a FieldInfo | PropertyInfo on the component and attempts to assign the value (String | Number | Boolean)
-commands.assign_component_value(cli, "My/Transform/Target", "Text", "text", "Hello World")
+commands.assign_component_value(cli, "My/Transform/Target", "InputField", "text", "Hello World")
+
+# Finds a FieldInfo | PropertyInfo on the component and attempts to obtain its value
+value = commands.fetch_component_value(cli, "My/Transform/Target", "InputField", "text")
+
 ```
 
 ## Assertions
@@ -67,6 +71,13 @@ assertions.assert_await_all_transforms_exist(cli, ["Some/Path1", "Some/Path2"], 
 
 # Awaits for any of the transforms to exist by timeout, fails when exceeded...
 assertions.assert_await_any_transforms_exist(cli, ["Some/Path1", "Some/Path2"], timeout_seconds=10)
+
+# Checks if FieldInfo | PropertyInfo on the component equals to the provided value
+assertions.assert_component_value_equals(cli, "My/Transform/Target", "InputField", "text", "password")
+
+# Awaits a FieldInfo | PropertyInfo on the component to become the provided value
+assertions.assert_await_component_value_equals(cli, "My/Transform/Target", "InputField", "text", "password")
+
 ```
 
 ## Advanced
