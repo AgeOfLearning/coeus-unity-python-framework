@@ -91,7 +91,7 @@ assertions.assert_await_transform_exists(cli, "Kiosk-{deviceFormFactor}(Clone"),
 ```
 
 ### Transform References
-In cases where two or more sibling transforms have the same name, the transform path is ambiguous. This makes it difficult to specify the correct transform, as the example below illustrates:
+If two or more sibling transforms have the same name, the transform path is ambiguous. This makes it difficult to specify the correct transform, as the example below illustrates:
 
 ```python
 # Suppose both buttons have the same transform path: "Path/To/Menu/Button"
