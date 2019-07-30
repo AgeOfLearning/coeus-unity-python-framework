@@ -118,6 +118,6 @@ button0_position = commands.fetch_transform_screen_position(cli, menu.children[0
 button1_position = commands.fetch_transform_screen_position(cli, menu.children[1])
 ```
 
-<Warning>
-*Transform references are only valid as long as the transform hierarchy doesn't change. If the hierarchy changes (e.g. a transform is created or deleted, or the sibling order changes), you must call `fetch_transform` again to obtain updated transform references.*
-</Warning>
+<aside class="warning">
+Transform references are only valid as long as the transform hierarchy doesn't change. If the hierarchy changes (e.g. a transform is created or deleted, or the sibling order changes), you must call `fetch_transform` again to obtain updated transform references.
+</aside>
