@@ -100,7 +100,7 @@ In cases where two or more sibling transforms have the same name, the transform 
 button0_position = commands.fetch_transform_screen_position(cli, "Path/To/Menu/Button")
 
 # Can't fetch button1 position using transform path because transform path is ambiguous
-button1_position = ???
+button1_position = # ???
 ```
 
 To resolve the ambiguity, you can use a transform reference, which supplements the transform path with sibling indices to yield a unique path for each transform. Use the `fetch_transform` command to obtain a transform reference:
@@ -118,6 +118,4 @@ button0_position = commands.fetch_transform_screen_position(cli, menu.children[0
 button1_position = commands.fetch_transform_screen_position(cli, menu.children[1])
 ```
 
-<aside class="warning">
-Transform references are only valid as long as the transform hierarchy doesn't change. If the hierarchy changes (e.g. a transform is created or deleted, or the sibling order changes), you must call `fetch_transform` again to obtain updated transform references.
-</aside>
+> *Warning:* Transform references are only valid as long as the transform hierarchy doesn't change. If the hierarchy changes (e.g. a transform is created or deleted, or the sibling order changes), you must call `fetch_transform` again to obtain updated transform references.
