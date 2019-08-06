@@ -17,7 +17,7 @@ def query_transform_exists(cli, transform_ref):
     :return: bool
     """
     # Ensure backwards compatibility with previous versions of this command that took a transform_path string.
-    transform_ref = _convert_to_transform_ref(transform_ref)
+    transform_ref = TransformRef.convert_to_transform_ref(transform_ref)
 
     message_payload = {
         "transform_ref": TransformRef.to_payload(transform_ref)
@@ -40,7 +40,7 @@ def await_transform_exists(cli, transform_ref, does_exist=DEFAULT_TRANSFORM_EXIS
     :return: bool
     """
     # Ensure backwards compatibility with previous versions of this command that took a transform_path string.
-    transform_ref = _convert_to_transform_ref(transform_ref)
+    transform_ref = TransformRef.convert_to_transform_ref(transform_ref)
 
     message_payload = {
         "transform_refs": TransformRef.list_to_payload([transform_ref]),
@@ -66,7 +66,7 @@ def await_any_transforms_exist(cli, transform_refs, does_exist=DEFAULT_TRANSFORM
     :return: bool
     """
     # Ensure backwards compatibility with previous versions of this command that took a transform_paths string array.
-    transform_refs = _convert_to_transform_refs(transform_refs)
+    transform_refs = TransformRef.convert_to_transform_refs(transform_refs)
     
     message_payload = {
         "transform_refs": TransformRef.list_to_payload(transform_refs),
@@ -92,7 +92,7 @@ def await_all_transforms_exist(cli, transform_refs, does_exist=DEFAULT_TRANSFORM
     :return: bool
     """
     # Ensure backwards compatibility with previous versions of this command that took a transform_paths string array.
-    transform_refs = _convert_to_transform_refs(transform_refs)
+    transform_refs = TransformRef.convert_to_transform_refs(transform_refs)
     
     message_payload = {
         "transform_refs": TransformRef.list_to_payload(transform_refs),
@@ -119,7 +119,7 @@ def fetch_transform(cli, transform_ref, recursive=DEFAULT_RECURSIVE):
     the ``fetch_transform_children`` command.
     """
     # Ensure backwards compatibility with previous versions of this command that took a transform_path string.
-    transform_ref = _convert_to_transform_ref(transform_ref)
+    transform_ref = TransformRef.convert_to_transform_ref(transform_ref)
 
     fetch_transform_children(cli, transform_ref, recursive)
 
@@ -142,7 +142,7 @@ def fetch_transform_children(cli, transform_ref, recursive=DEFAULT_RECURSIVE):
     the returned TransformRefs.
     """
     # Ensure backwards compatibility with previous versions of this command that took a transform_path string.
-    transform_ref = _convert_to_transform_ref(transform_ref)
+    transform_ref = TransformRef.convert_to_transform_ref(transform_ref)
     
     message_payload = {
         "transform_ref": TransformRef.to_payload(transform_ref),
@@ -168,7 +168,7 @@ def fetch_transform_screen_position(cli, transform_ref):
     :return: [x,y]
     """
     # Ensure backwards compatibility with previous versions of this command that took a transform_path string.
-    transform_ref = _convert_to_transform_ref(transform_ref)
+    transform_ref = TransformRef.convert_to_transform_ref(transform_ref)
     
     message_payload = {
         "transform_ref": TransformRef.to_payload(transform_ref)
@@ -193,7 +193,7 @@ def fetch_transform_normalized_screen_position(cli, transform_ref):
     :return: [x,y]
     """
     # Ensure backwards compatibility with previous versions of this command that took a transform_path string.
-    transform_ref = _convert_to_transform_ref(transform_ref)
+    transform_ref = TransformRef.convert_to_transform_ref(transform_ref)
     
     message_payload = {
         "transform_ref": TransformRef.to_payload(transform_ref)
@@ -217,7 +217,7 @@ def query_renderer_visible(cli, transform_ref):
     :return: bool
     """
     # Ensure backwards compatibility with previous versions of this command that took a transform_path string.
-    transform_ref = _convert_to_transform_ref(transform_ref)
+    transform_ref = TransformRef.convert_to_transform_ref(transform_ref)
     
     message_payload = {
         "transform_ref": TransformRef.to_payload(transform_ref)
@@ -240,7 +240,7 @@ def await_renderer_visible(cli, transform_ref, is_visible=DEFAULT_RENDERER_VISIB
     :return: bool
     """
     # Ensure backwards compatibility with previous versions of this command that took a transform_path string.
-    transform_ref = _convert_to_transform_ref(transform_ref)
+    transform_ref = TransformRef.convert_to_transform_ref(transform_ref)
     
     message_payload = {
         "transform_ref": TransformRef.to_payload(transform_ref),
@@ -306,7 +306,7 @@ def fetch_component_value(cli, transform_ref, component_type, name):
     :return: Component value
     """
     # Ensure backwards compatibility with previous versions of this command that took a transform_path string.
-    transform_ref = _convert_to_transform_ref(transform_ref)
+    transform_ref = TransformRef.convert_to_transform_ref(transform_ref)
     
     message_payload = {
         "transform_ref": TransformRef.to_payload(transform_ref),
@@ -332,7 +332,7 @@ def assign_component_value(cli, transform_ref, component_type, name, value):
     :return: bool
     """
     # Ensure backwards compatibility with previous versions of this command that took a transform_path string.
-    transform_ref = _convert_to_transform_ref(transform_ref)
+    transform_ref = TransformRef.convert_to_transform_ref(transform_ref)
     
     message_payload = {
         "transform_ref": TransformRef.to_payload(transform_ref),
@@ -359,7 +359,7 @@ def await_component_value_equals(cli, transform_ref, component_type, name, value
     :return bool(response['payload']['success'])
     """
     # Ensure backwards compatibility with previous versions of this command that took a transform_path string.
-    transform_ref = _convert_to_transform_ref(transform_ref)
+    transform_ref = TransformRef.convert_to_transform_ref(transform_ref)
     
     message_payload = {
         "transform_ref": TransformRef.to_payload(transform_ref),
@@ -374,34 +374,3 @@ def await_component_value_equals(cli, transform_ref, component_type, name, value
     response = cli.read_message()
     verify_response(response)
     return bool(response['payload']['success'])
-
-
-def _convert_to_transform_ref(transform_ref):
-    """
-    Converts the input to a TransformRef. If the input is already a TransformRef, no conversion is performed.
-
-    Conversion is performed to ensure backwards compatibility with commands that previously took a transform_path,
-    which now take a transform_ref to distinguish between multiple transforms with the same path.
-    :param transform_ref: an instance of TransformRef, or a string representing a transform path.
-    :return: If the input is already a TransformRef, no conversion is performed; otherwise, returns a new instance of
-    TransformRef containing the specified transform path.
-    """
-    if not isinstance(transform_ref, TransformRef):
-        transform_ref = TransformRef(transform_ref)
-    return transform_ref
-
-
-def _convert_to_transform_refs(transform_refs):
-    """
-    Converts the input to an array of TransformRef. If the input is already an array of TransformRef, no conversion is
-    performed.
-
-    Conversion is performed to ensure backwards compatibility with commands that previously took a transform_path,
-    which now take a transform_ref to distinguish between multiple transforms with the same path.
-    :param transform_refs: an array of TransformRef, or an array of strings representing transform paths.
-    :return: If the input is already an array of TransformRef, no conversion is performed; otherwise, returns an array
-    of TransformRefs containing the specified transform paths.
-    """
-    for i in range(len(transform_refs)):
-        transform_refs[i] = _convert_to_transform_ref(transform_refs[i])
-    return transform_refs
