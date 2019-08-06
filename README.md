@@ -11,9 +11,8 @@
 Coeus-Unity is a collection of commands and assertions built on `coeus-test` package for python. These commands support remote integration tests in Unity with the use of the C# Coeus test framework.
 
 ### Contributors
-- [@dklompmaker](https://github.com/dklompmaker)
-- [@copyleftdev](https://github.com/copyleftdev)
-- [@KeithPatch](https://github.com/KeithPatch)
+- [@greg-morchower-aofl](https://github.com/greg-morchower-aofl)
+- [@leonidumanskiy](https://github.com/leonidumanskiy)
 
 ## Setup
 Simply install the requirement into your package. 
