@@ -295,3 +295,34 @@ class TransformRef:
             transform_refs.append(transform_ref)
 
         return transform_refs
+
+    @staticmethod
+    def convert_to_transform_ref(transform_ref):
+        """
+        Converts the input to a TransformRef. If the input is already a TransformRef, no conversion is performed.
+
+        Conversion is performed to ensure backwards compatibility with commands that previously took a transform_path,
+        which now take a transform_ref to distinguish between multiple transforms with the same path.
+        :param transform_ref: an instance of TransformRef, or a string representing a transform path.
+        :return: If the input is already a TransformRef, no conversion is performed; otherwise, returns a new instance
+        of TransformRef containing the specified transform path.
+        """
+        if not isinstance(transform_ref, TransformRef):
+            transform_ref = TransformRef(transform_ref)
+        return transform_ref
+
+    @staticmethod
+    def convert_to_transform_refs(transform_refs):
+        """
+        Converts the input to an array of TransformRef. If the input is already an array of TransformRef, no conversion
+        is performed.
+
+        Conversion is performed to ensure backwards compatibility with commands that previously took a transform_path,
+        which now take a transform_ref to distinguish between multiple transforms with the same path.
+        :param transform_refs: an array of TransformRef, or an array of strings representing transform paths.
+        :return: If the input is already an array of TransformRef, no conversion is performed; otherwise, returns an
+        array of TransformRefs containing the specified transform paths.
+        """
+        for i in range(len(transform_refs)):
+            transform_refs[i] = TransformRef.convert_to_transform_ref(transform_refs[i])
+        return transform_refs

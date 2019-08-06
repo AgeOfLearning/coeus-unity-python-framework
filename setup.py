@@ -42,6 +42,6 @@ setup(
     setup_requires=setup_requirements,
     tests_require=test_requirements,
     url='https://github.com/AgeOfLearning/coeus-unity-python-framework',
-    version='0.1.15',
+    version='0.1.16',
     zip_safe=False,
 )
